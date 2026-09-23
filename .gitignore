@@ -1,19 +1,6 @@
-# secrets
 .env
-.env.*
-!.env.example
-
-# Python
 .venv/
 __pycache__/
-*.pyc
-
-# Node / React
 node_modules/
-dist/
-.vite/
-
-# local data / OS
-output/
-.DS_Store
-Thumbs.db
+*.zip
+*.db

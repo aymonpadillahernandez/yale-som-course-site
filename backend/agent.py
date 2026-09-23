@@ -36,7 +36,7 @@ load_dotenv(ROOT.parent / ".env")
 MODEL_NAME = "gpt-5.6-luna"
 DEFAULT_BASE_URL = "https://api.portkey.ai/v1"
 MISSING_KEY_MESSAGE = (
-    "PORTKEY_API_KEY is not set. Add it to Lecture 8/.env or the parent "
+    "PORTKEY_API_KEY is not set. Add it to yale_som_courses_aymon/.env or the parent "
     "workspace .env (see .env.example), then restart uvicorn."
 )
 
