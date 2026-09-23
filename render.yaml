@@ -1,0 +1,33 @@
+# Render Blueprint: one repo, two services.
+# Render dashboard → New → Blueprint → pick this repo. It reads this file and
+# fills in every setting below. Deploys the backend first, then the frontend.
+services:
+  # 1. Backend — Web Service (FastAPI + PydanticAI agent)
+  - type: web
+    name: yale-som-courses-api
+    runtime: python
+    plan: free # change to starter ($7/mo) to avoid sleep after 15 min idle
+    # No rootDir: the backend reads ../data, which must stay reachable
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORTKEY_API_KEY
+        sync: false # Render asks you to paste the key; it never lives in git
+
+  # 2. Frontend — Static Site (React + Vite)
+  - type: web
+    name: yale-som-courses-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      # Backend's public URL. Matches the service name above; if Render gives
+      # the backend a different URL, update this in the dashboard and redeploy.
+      - key: VITE_API_URL
+        value: https://yale-som-courses-api.onrender.com

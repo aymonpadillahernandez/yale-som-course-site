@@ -1,5 +1,5 @@
-// Calls the FastAPI backend. CORS is already open in Backend/main.py.
-export const API_BASE = "http://127.0.0.1:8000";
+// Calls the FastAPI backend. On Render, VITE_API_URL is set at build time.
+export const API_BASE = (import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 
 // Keys match the raw rows in data/yale_som_classes.json, which /api/courses returns as-is.
 export interface Course {
