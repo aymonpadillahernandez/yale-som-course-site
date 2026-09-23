@@ -15,6 +15,5 @@ dist/
 
 # local data / OS
 output/
-*.db
 .DS_Store
 Thumbs.db
